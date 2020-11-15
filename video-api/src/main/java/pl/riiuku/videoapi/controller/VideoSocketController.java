@@ -11,9 +11,9 @@ public class VideoSocketController {
 
     @MessageMapping("/video-call")
     @SendTo("/topic/video-call")
-    public byte sendVideoBytes(byte[] message) {
-        System.out.println("TEST");
-        return message[1];
+    public byte[] sendVideoBytes(byte[] message) {
+        System.out.println("Wchodzi do metody");
+        return message;
 
     }
 
