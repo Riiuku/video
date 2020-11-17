@@ -5,7 +5,12 @@ import pl.riiuku.videoapi.api.RoomRequest;
 import pl.riiuku.videoapi.domain.Room;
 import pl.riiuku.videoapi.repository.RoomRepository;
 
+import java.time.LocalDateTime;
+import java.time.temporal.TemporalUnit;
 import java.util.List;
+import java.util.UUID;
+
+import static java.time.temporal.ChronoUnit.MINUTES;
 
 @Service
 public class RoomServiceImpl implements RoomService {
@@ -32,7 +37,7 @@ public class RoomServiceImpl implements RoomService {
             } while (savedNames.contains(name + "_" + numberName));
             name.append("_").append(numberName);
         }
-        return roomRepository.save(new Room(name.toString(), roomRequest.maxSize));
+        return roomRepository.save(new Room(UUID.randomUUID(), name.toString(), roomRequest.maxSize, LocalDateTime.now().plus(30, MINUTES)));
     }
 
 
