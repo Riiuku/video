@@ -24,14 +24,16 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public Room createNewRoom(RoomRequest roomRequest) {
-        String name = roomRequest.name;
-        List<String> savedNames = roomRepository.findAllNamesLike(name);
-        if (savedNames.size() == 0 || !savedNames.contains(name)) {
-            return roomRepository.save(new Room(name, roomRequest.maxSize));
-        } else {
-            savedNames.forEach(System.out::println);
-            return null;
+        StringBuilder name = new StringBuilder(roomRequest.name);
+        List<String> savedNames = roomRepository.findAllNamesLike(name.toString());
+        if (savedNames.size() != 0 && savedNames.contains(name.toString())) {
+            int numberName = 0;
+            do {
+                numberName++;
+            } while (savedNames.contains(name + "_" + numberName));
+            name.append("_").append(numberName);
         }
+        return roomRepository.save(new Room(name.toString(), roomRequest.maxSize));
 
     }
 

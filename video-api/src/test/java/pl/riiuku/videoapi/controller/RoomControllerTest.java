@@ -39,5 +39,17 @@ class RoomControllerTest {
                 .content(new ObjectMapper().writeValueAsString(new RoomRequest(name, null))))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.name", is(name)));
+
+        mockMvc.perform(post("/rooms")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(new ObjectMapper().writeValueAsString(new RoomRequest(name, null))))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.name", is(name + "_" + "1")));
+
+        mockMvc.perform(post("/rooms")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(new ObjectMapper().writeValueAsString(new RoomRequest(name, null))))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.name", is(name + "_" + "2")));
     }
 }
