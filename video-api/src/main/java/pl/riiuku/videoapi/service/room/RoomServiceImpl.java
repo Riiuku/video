@@ -6,7 +6,6 @@ import pl.riiuku.videoapi.domain.Room;
 import pl.riiuku.videoapi.repository.RoomRepository;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class RoomServiceImpl implements RoomService {
@@ -34,7 +33,6 @@ public class RoomServiceImpl implements RoomService {
             name.append("_").append(numberName);
         }
         return roomRepository.save(new Room(name.toString(), roomRequest.maxSize));
-
     }
 
 
