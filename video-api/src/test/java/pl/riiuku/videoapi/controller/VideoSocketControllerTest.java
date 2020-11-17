@@ -1,5 +1,6 @@
 package pl.riiuku.videoapi.controller;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -33,6 +34,7 @@ class VideoSocketControllerTest {
     private int port;
 
     @Test
+    @Disabled
     public void sendVideoBytes() throws InterruptedException, ExecutionException, TimeoutException, IOException {
         //given
         byte[] file = Files.readAllBytes(Paths.get("src/test/resources/static/test.jpg"));
