@@ -45,6 +45,7 @@ class RoomControllerTest {
             mockMvc.perform(post("/rooms")
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(new ObjectMapper().writeValueAsString(new RoomRequest(name, null))))
+                    .andDo(print())
                     .andExpect(status().isCreated())
                     .andExpect(jsonPath("$.name", is(testName)));
         }

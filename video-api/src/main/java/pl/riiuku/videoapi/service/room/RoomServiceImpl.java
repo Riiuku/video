@@ -10,17 +10,22 @@ import java.time.LocalDateTime;
 import java.time.temporal.TemporalUnit;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
 import static java.time.temporal.ChronoUnit.MINUTES;
+import static java.time.temporal.ChronoUnit.SECONDS;
 
 @Service
 public class RoomServiceImpl implements RoomService {
 
     private final RoomRepository roomRepository;
+    private final RoomSchedulerService roomSchedulerService;
 
-    public RoomServiceImpl(RoomRepository roomRepository) {
+
+    public RoomServiceImpl(RoomRepository roomRepository, RoomSchedulerService roomSchedulerService) {
         this.roomRepository = roomRepository;
+        this.roomSchedulerService = roomSchedulerService;
     }
 
     @Override
@@ -39,14 +44,17 @@ public class RoomServiceImpl implements RoomService {
             } while (savedNames.contains(name + "_" + numberName));
             name.append("_").append(numberName);
         }
-        return new RoomResponse(
+
+        Room room =
                 roomRepository.save(
                         new Room(
                                 UUID.randomUUID(),
                                 name.toString(),
                                 roomRequest.maxSize,
-                                LocalDateTime.now().plus(30, MINUTES))));
-    }
+                                LocalDateTime.now().plus(30, SECONDS)));
 
+        roomSchedulerService.createNewDeleteTask(room);
+        return new RoomResponse(room);
+    }
 
 }
