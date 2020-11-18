@@ -3,8 +3,11 @@ package pl.riiuku.videoapi.service.room;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import pl.riiuku.videoapi.domain.Room;
+import pl.riiuku.videoapi.exception.RoomNotFoundException;
 import pl.riiuku.videoapi.repository.RoomRepository;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 import java.util.concurrent.*;
 
@@ -20,12 +23,22 @@ public class RoomSchedulerServiceImpl implements RoomSchedulerService {
     }
 
     @Override
-    public void extentTimeOfRoomLife(UUID publicId) {
+    public LocalDateTime extentTimeOfRoomLife(UUID publicId) {
+        return roomRepository.findByPublicId(publicId).map(room -> {
+            room.setCreateDate(LocalDateTime.now().plus(30, ChronoUnit.SECONDS));
 
+            if (schedulers.containsKey(publicId)) {
+                schedulers.get(publicId).cancel(true);
+                createNewDeleteTask(room);
+            }
+
+            return roomRepository.save(room).getCreateDate();
+        }).orElseThrow(() -> new RoomNotFoundException("Room not found!"));
     }
 
     @Override
-    public void createNewDeleteTask(Room room)  {
+    public void createNewDeleteTask(Room room) {
+        schedulers.remove(room.getPublicId());
         ScheduledFuture<?> scheduledFuture = executor.schedule(() -> {
             roomRepository.deleteById(room.getId());
             schedulers.remove(room.getPublicId());
