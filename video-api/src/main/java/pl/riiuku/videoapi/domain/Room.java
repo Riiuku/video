@@ -24,7 +24,7 @@ public class Room extends BaseEntity {
     private String name;
     @Column(name = "max_size", nullable = true)
     private Integer maxSize;
-    @Column(name = "crate_date", nullable = false)
+    @Column(name = "create_date", nullable = false)
     private LocalDateTime createDate;
 
     public Room(UUID publicId, @Length(min = 4, max = 64) String name, Integer maxSize, LocalDateTime createDate) {

@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.riiuku.videoapi.api.RoomRequest;
+import pl.riiuku.videoapi.api.RoomResponse;
 import pl.riiuku.videoapi.domain.Room;
 import pl.riiuku.videoapi.service.room.RoomService;
 
@@ -21,13 +22,13 @@ public class RoomController {
     }
 
     @GetMapping()
-    public List<Room> getAvailableRooms() {
+    public List<RoomResponse> getAvailableRooms() {
         return roomService.getAllRooms();
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Room saveRoom(@RequestBody @Valid RoomRequest roomRequest) {
+    public RoomResponse saveRoom(@RequestBody @Valid RoomRequest roomRequest) {
         return roomService.createNewRoom(roomRequest);
     }
 }

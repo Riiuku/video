@@ -34,7 +34,6 @@ class VideoSocketControllerTest {
     private int port;
 
     @Test
-    @Disabled("Disable because Circle CI has a problem with websocket message broker")
     public void sendVideoBytes() throws InterruptedException, ExecutionException, TimeoutException, IOException {
         //given
         byte[] file = Files.readAllBytes(Paths.get("src/test/resources/static/test.jpg"));

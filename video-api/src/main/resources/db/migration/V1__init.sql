@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS room(
         public_id UUID NOT NULL,
         name VARCHAR(64) NOT NULL,
         max_size INT,
-        create_date TIMESTAMPTZ,
+        create_date TIMESTAMP WITH TIME ZONE,
         PRIMARY KEY(id)
 );
 CREATE UNIQUE INDEX ON room(name);
