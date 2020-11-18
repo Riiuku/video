@@ -18,4 +18,6 @@ public class RoomResponse {
         this.maxSize = room.getMaxSize();
     }
 
+    public RoomResponse() {
+    }
 }

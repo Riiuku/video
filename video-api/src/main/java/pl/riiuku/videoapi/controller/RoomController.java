@@ -38,7 +38,7 @@ public class RoomController {
         return roomService.createNewRoom(roomRequest);
     }
 
-    @PutMapping(path = "{publicId}/time")
+    @PatchMapping(path = "{publicId}/time")
     @ResponseStatus(HttpStatus.OK)
     public LocalDateTime extendRoomLifeTime(@PathVariable UUID publicId) {
         return roomSchedulerService.extentTimeOfRoomLife(publicId);
