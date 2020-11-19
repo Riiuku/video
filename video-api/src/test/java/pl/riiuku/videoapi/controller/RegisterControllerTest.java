@@ -25,6 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class RegisterControllerTest {
 
+    //TODO IT IS SIMPLE REGISTER ACCOUNT MAYBE LATER WILL BE ADDED FULL SECURITY (DON"T WANT TO DO IT FOR NOW)
 
     @Autowired
     private MockMvc mockMvc;
