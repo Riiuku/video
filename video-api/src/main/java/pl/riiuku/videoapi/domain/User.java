@@ -14,25 +14,21 @@ import java.util.UUID;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
-@Table(name = "rooms")
+@Table(name = "users")
 @AllArgsConstructor
-public class Room extends BaseEntity {
+public class User extends BaseEntity {
 
-
-    @Column(name = "name", nullable = false)
+    @Column(name = "user_name", nullable = false)
     @Length(min = 4, max = 64)
-    private String name;
-    @Column(name = "max_size", nullable = true)
-    private Integer maxSize;
+    private String userName;
 
-
-    public Room(UUID publicId, @Length(min = 4, max = 64) String name, Integer maxSize, LocalDateTime createDate) {
+    public User(UUID publicId, LocalDateTime createDate, @Length(min = 4, max = 64) String userName) {
         super(publicId, createDate);
-        this.name = name;
-        this.maxSize = maxSize;
+        this.userName = userName;
     }
 
-    public Room() {
+    public User() {
 
     }
+
 }

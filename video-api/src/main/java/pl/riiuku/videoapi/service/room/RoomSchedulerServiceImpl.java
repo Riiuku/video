@@ -14,6 +14,7 @@ import java.util.concurrent.*;
 @Service
 public class RoomSchedulerServiceImpl implements RoomSchedulerService {
 
+    // TODO What should happening when instance went down?
     private final RoomRepository roomRepository;
     private static final ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
     private static final ConcurrentHashMap<UUID, ScheduledFuture<?>> schedulers = new ConcurrentHashMap<>();
