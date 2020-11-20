@@ -1,6 +1,7 @@
 package pl.riiuku.videoapi.controller;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.riiuku.videoapi.api.RoomRequest;
@@ -42,5 +43,11 @@ public class RoomController {
     @ResponseStatus(HttpStatus.OK)
     public LocalDateTime extendRoomLifeTime(@PathVariable UUID publicId) {
         return roomSchedulerService.extentTimeOfRoomLife(publicId);
+    }
+
+    @PostMapping(path = "{publicId}/join")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void joinToRoom(@PathVariable(value = "publicId") UUID roomId, @Header("user_id") UUID userId) {
+        roomService.joinToRoom(roomId, userId);
     }
 }

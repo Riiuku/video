@@ -73,8 +73,9 @@ class RoomControllerTest {
                 .andExpect(status().isOk());
     }
 
+
     @Test
-    @Order(4)
+    @Order(5)
     public void shouldExtendTimeOfChosenRoom() throws Exception {
         String responseBody = mockMvc.perform(get("/rooms")).andReturn().getResponse().getContentAsString();
         RoomResponse body = new ObjectMapper()
