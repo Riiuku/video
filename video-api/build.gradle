@@ -33,6 +33,6 @@ dependencies {
 }
 
 test {
-//	exclude("**/VideoSocketControllerTest.class")
+	exclude("**/VideoSocketControllerTest.class")
 	useJUnitPlatform()
 }
