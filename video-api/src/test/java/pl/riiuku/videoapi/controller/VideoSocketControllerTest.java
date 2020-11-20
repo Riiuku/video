@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.UUID;
 import java.util.concurrent.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -37,6 +38,7 @@ class VideoSocketControllerTest {
     public void sendVideoBytes() throws InterruptedException, ExecutionException, TimeoutException, IOException {
         //given
         byte[] file = Files.readAllBytes(Paths.get("src/test/resources/static/test.jpg"));
+        UUID roomId = UUID.randomUUID();
         BlockingQueue<byte[]> values = new ArrayBlockingQueue<>(1);
         client.setMessageConverter(new ByteArrayMessageConverter());
         StompSession stomp = client
@@ -44,7 +46,7 @@ class VideoSocketControllerTest {
                 })
                 .get(1L, TimeUnit.SECONDS);
         //when
-        stomp.subscribe("/topic/video-call", new StompFrameHandler() {
+        stomp.subscribe("/topic/video-call/" + roomId, new StompFrameHandler() {
             @Override
             public Type getPayloadType(StompHeaders headers) {
                 return byte[].class;
@@ -55,8 +57,12 @@ class VideoSocketControllerTest {
                 values.add((byte[]) payload);
             }
         });
+        StompHeaders stompHeaders = new StompHeaders();
+        stompHeaders.setDestination("/app/video-call");
+        stompHeaders.add("room_id", roomId.toString());
+        stompHeaders.add("user_id", roomId.toString());
 
-        stomp.send("/app/video-call", file);
+        stomp.send(stompHeaders, file);
 
         //then
         // NOTE -> performance of method assertEquals for big byte[] is terrible!

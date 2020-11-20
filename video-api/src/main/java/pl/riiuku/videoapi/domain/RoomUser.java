@@ -5,13 +5,15 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
 @Table(name = "rooms_users")
 @AllArgsConstructor
-public class RoomsUsers extends BaseEntity {
+public class RoomUser extends BaseEntity {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -22,7 +24,13 @@ public class RoomsUsers extends BaseEntity {
     @MapsId("room_id")
     private Room room;
 
-    public RoomsUsers() {
+    public RoomUser() {
 
+    }
+
+    public RoomUser(UUID publicId, LocalDateTime createDate, User user, Room room) {
+        super(publicId, createDate);
+        this.user = user;
+        this.room = room;
     }
 }
