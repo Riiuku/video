@@ -1,0 +1,6 @@
+.footer_section {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    color: crimson;
+}

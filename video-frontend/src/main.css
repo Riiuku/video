@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 100%;
 
 }
 
@@ -42,4 +42,8 @@
     border-radius: 4px;
     padding: 8px 16px;
 
+}
+
+.index__section {
+    height: 100vh;
 }

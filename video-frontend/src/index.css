@@ -32,6 +32,7 @@ footer, header, hgroup, menu, nav, section {
 }
 
 body {
+  height: 100vh;
   line-height: 1;
 }
 
@@ -116,6 +117,7 @@ audio:not([controls]) {
  */
 
 html {
+
   font-size: 100%; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
   -ms-text-size-adjust: 100%; /* 2 */
@@ -364,4 +366,12 @@ textarea {
   background: #ccc;
   color: #000;
   padding: 0.2em 0;
+}
+
+.index__router {
+  height: 98%;
+}
+
+.index__footer {
+  height: 2%;
 }
