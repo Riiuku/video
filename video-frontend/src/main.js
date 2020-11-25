@@ -1,4 +1,5 @@
 import React from "react";
+import './main.css';
 
 const roomList = [
     {
@@ -33,13 +34,12 @@ const roomList = [
 
 export function Main() {
     return (
-        <section>
-            <article>
-                <h2>Pokoje które używałeś</h2>
+        <section className="main__section">
+            <article className="main__article">
+                <h2 className="main__h2">Pokoje które używałeś</h2>
                 { roomList.filter(data => data.isAlreadyLogged).map(data => <Room key={data.publicId} room={data}/>)}
-            </article>
-            <article>
-                <h2>Pozostałe pokoje</h2>
+
+                <h2 className="main__h2">Pozostałe pokoje</h2>
                 { roomList.filter(data => !data.isAlreadyLogged).map(data => <Room key={data.publicId}  room={data}/>)}
             </article>
         </section>
@@ -49,9 +49,11 @@ export function Main() {
 
 const Room = (props) => {
     return (
-        <div>
-            {props.room.name} {props.room.users}/{ props.room.maxSize ? props.room.maxSize : '∞'}
-            <button type="button">Dołącz</button>
+        <div className="room__div">
+            <p>{props.room.name} {props.room.users}/{ props.room.maxSize ? props.room.maxSize : '∞'}</p>
+            <div className="room__div--button">
+                <button className="room__button" type="button">Dołącz</button>
+            </div>
         </div>
     )
 }
