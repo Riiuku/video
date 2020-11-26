@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import {BrowserRouter as Router, Route, useHistory} from "react-router-dom";
@@ -17,12 +17,12 @@ function Start() {
             getUser()
                 .then(r => {
                     if (r.status < 299) {
-                        history.push("/main")
+                        // console.log(history)
+                        // history.push("/main")
                     } else {
                         localStorage.removeItem("user-id")
                     }
                 })
-
         }
     }, [history])
 
