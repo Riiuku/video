@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import pl.riiuku.videoapi.domain.User;
 import pl.riiuku.videoapi.api.UserRequest;
 import pl.riiuku.videoapi.api.UserResponse;
+import pl.riiuku.videoapi.exception.UserNotFoundException;
 import pl.riiuku.videoapi.repository.UserRepository;
 
 import java.time.LocalDateTime;
@@ -27,5 +28,11 @@ public class UserServiceImpl implements UserService {
                                 UUID.randomUUID(),
                                 LocalDateTime.now(),
                                 userRequest.userName)));
+    }
+
+    @Override
+    public UserResponse getUser(UUID publicId) {
+        User user = userRepository.findByPublicId(publicId).orElseThrow(() -> new UserNotFoundException("User not found"));
+        return new UserResponse(user);
     }
 }

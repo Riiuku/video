@@ -9,6 +9,9 @@ public class RoomResponse {
     public String name;
     public UUID publicId;
     public LocalDateTime lifeTime;
+    public Integer users;
+    public String creator;
+    public Boolean isAlreadyLogged;
     public Integer maxSize;
 
     public RoomResponse(Room room) {
