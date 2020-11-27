@@ -1,7 +1,7 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import './login.css';
 import {useHistory} from 'react-router-dom';
-import {setUser} from "../api/user-api";
+import {getUser, setUser} from "../api/user-api";
 
 export function Login() {
 
@@ -19,6 +19,20 @@ export function Login() {
         props.preventDefault();
         console.log(name)
     }
+
+    useEffect(() => {
+
+        if (localStorage.getItem("user-id") != null) {
+            getUser()
+                .then(r => {
+                    if (r.status < 299) {
+                        history.push("/main")
+                    } else {
+                        localStorage.removeItem("user-id")
+                    }
+                })
+        }
+    }, [])
 
     return (
         <section className="login_form_section">
